@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project }} | Portfolio{% endblock %}
+
+{% block landing_image %}
+<div class="intro-content display-table">
+  <div class="table-cell">
+    <div class="container">
+      <h2 class="intro-title mb-4 text-center">Project Details</h2>
+      <ol class="breadcrumb d-flex justify-content-center">
+        <li class="breadcrumb-item">
+          <a href="#">Home</a>
+        </li>
+        <li class="breadcrumb-item active">{{ project }}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock landing_image %}
+{% block content %}
+<!-- ======= Portfolio Details Section ======= -->
+<section id="portfolio-details" class="portfolio-details">
+  <div class="container">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-8">
+        <div class="portfolio-details-slider swiper-container">
+          <div class="swiper-wrapper align-items-center">
+
+            <div class="swiper-slide">
+              <img src="{{ project.ProjectURL }}" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="{% static '/img/work-5.jpg' %}" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="{% static '/img/work-3.jpg' %}" alt="">
+            </div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="portfolio-info">
+          <h3>Project information</h3>
+          <ul>
+            <li><strong>Category</strong>: {{ project.topic }}</li>
+            <li><strong>Client</strong>:{{ project.client }}</li>
+            <li><strong>Project date</strong>: {{ project.project_created | date:"D d M, Y." }}</li>
+            <li><strong>Project URL</strong>: <a href="{{ project.proj_url }}">{{ project.proj_url }}</a></li>
+          </ul>
+        </div>
+        <div class="portfolio-description">
+          <h2>{{ project.name }}</h2>
+          <p>
+            {{ project.description }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- End Portfolio Details Section -->
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SignIn Page | Portfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="my-5 p-5 text-center text-white" style="background-color:#011a2f;
+            background-size: cover;">
+        <form action="{% url 'resume:sign_account' %}" method="POST" class="my-5 mx-md-5">
+            {% csrf_token %}
+            <div class="row d-flex justify-content-center">
+                <h2 class="green-text text-center text-white">Sign in to post your Project</h2>
+                <div class="col-md-6">
+                    <!-- start error-message -->
+                    {% if login_error%}
+                    <h5 class="text-danger">{{ login_error }}</h5>
+                    {% endif %}
+                    <h5 class="text-danger">{{ form.username.errors }}</h5>
+                    <!-- end error-message -->
+                    <!-- Username -->
+                    <div class="form-outline mb-4">
+                        <input type="text" name="username" id="id_username" class="form-control" required
+                            placeholder="Username" />
+                        <label for="id_username">Username</label>
+                    </div>
+                    <br>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" name="password" id="id_password" class="form-control" required />
+                        <label for="id_password">Password</label>
+                    </div>
+                    <hr>
+                    <button type="submit" class="button button-a button-big button-rouded btn-primary">SignIn</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock content %}
