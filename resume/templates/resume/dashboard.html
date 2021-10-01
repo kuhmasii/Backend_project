@@ -1,19 +1,206 @@
-{{ name }} <a href="{% url 'resume:index' %}">Home</a>
-<br>
-<br>
-<br>
-<hr>
-<form method="POST" enctype="multipart/form-data">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="submit">
-</form>
-<br><br><br>
-<hr>
-<form method="POST" enctype="multipart/form-data">
-    {{ form_update.as_p }}
-    <h5>Accomplishment section</h5>
-    {{ form_upd_accom.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="submit">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <title>{{ request.user }} dashboard | Portfolio </title>
+</head>
+
+<body>
+    <!-- Carousel wrapper -->
+    <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+
+        <!-- Inner -->
+        <div class="carousel-inner">
+            <!-- Single item -->
+            <div class="carousel-item active">
+                <img src="{% static 'img/post-1.jpg' %}" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item">
+                <img src="{% static 'img/post-2.jpg' %}" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item">
+                <img src="{% static 'img/post-3.jpg' %}" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+        </div>
+        <!-- Inner -->
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+            data-mdb-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+            data-mdb-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!-- Carousel wrapper -->
+    <div class="container">
+        <hr>
+        <button type="submit" class="btn btn-success btn-rounded"><a class="text-white"
+                href="{% url 'resume:index' %}">Home</a></button>
+        <hr>
+        <div class="row">
+            <!-- Displaying Upload Template -->
+            <div class="col-sm-5 col-md-6">
+                <form action="{% url 'resume:dashboard' %}" method="POST" class="form-control"
+                    enctype="multipart/form-data">
+                    <!-- {{ form.as_p }} -->
+                    {% csrf_token %}
+                    <div class="form-outline">
+                        {{ form.name.errors }}
+                        <input type="text" id="id_name" name="name" class="form-control" />
+                        <label class="form-label" for="id_name">Project Name</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form.topic.errors }}
+                        <input type="text" id="id_topic" name="topic" class="form-control" />
+                        <label class="form-label" for="id_topic">Project Topic</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form.description.errors }}
+                        <textarea class="form-control" id="id_description" name="description" rows="4"></textarea>
+                        <label class="form-label" for="id_description">Description</label>
+                    </div>
+                    <br>
+                    {{ form.proj_pic.errors }}
+                    <label class="form-label" for="id_proj_pic">Project Picture:</label>
+                    <input type="file" class="form-control" name="proj_pic" id="id_proj_pic" required />
+                    <br>
+                    <div class="form-outline">
+                        {{ form.proj_url.errors }}
+                        <input type="url" id="id_proj_url" name="proj_url" class="form-control" />
+                        <label class="form-label" for="id_proj_url">URL</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form.client.errors }}
+                        <input type="text" id="id_client" name="client" class="form-control" />
+                        <label class="form-label" for="id_client">Client</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form.created.errors }}
+                        <input type="text" id="id_created" name="created" class="form-control"
+                            placeholder="Y-M-D H:M:S" />
+                        <label class="form-label" for="id_created">Date Created</label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success btn-rounded">Upload</button>
+                </form>
+            </div>
+            <!-- Displaying Update Template -->
+            <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+                <form action="{% url 'resume:dashboard' %}" method="POST" enctype="multipart/form-data"
+                    class="form-control">
+                    {% csrf_token %}
+                    <!-- {{ form_update.as_p }} -->
+                    <div class="form-outline">
+                        {{ form_update.phone_number.errors }}
+                        <input type="number" id="id_phone_number" name="phone_number"
+                            value="{{ form_update.phone_number.value }}" class="form-control" />
+                        <label class="form-label" for="id_phone_number">Phone number:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_update.address.errors }}
+                        <input type="text" id="id_address" name="address" value="{{ form_update.address.value }}"
+                            class="form-control" maxlength="50" />
+                        <label class="form-label" for="id_address">Address:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_update.profile_pic.errors }}
+                        {{ form_update.profile_pic }}
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form.about_me.errors }}
+                        <textarea class="form-control" cols="40" rows="10" id="id_about_me"
+                            name="about_me">{{ form_update.about_me.value }}</textarea>
+                        <label class="form-label" for="id_about_me">About me:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_update.skills.errors }}
+                        <input type="text" id="id_skills" name="skills" value="{{ form_update.skills.value }}"
+                            class="form-control" maxlength="150" required />
+                        <label class="form-label" for="id_skills">Skills:</label>
+                    </div>
+                    <hr>
+                    <h5>Accomplishment section</h5>
+                    <!-- {{ form_upd_accom.as_p }} -->
+                    <div class="form-outline">
+                        {{ form_upd_accom.work_completed.errors }}
+                        <input type="number" id="id_work_completed" name="work_completed"
+                            value="{{ form_upd_accom.work_completed.value }}" class="form-control" required />
+                        <label class="form-label" for="id_work_completed">Work completed:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_upd_accom.years_of_exper.errors }}
+                        <input type="number" id="id_years_of_exper" name="years_of_exper"
+                            value="{{ form_upd_accom.years_of_exper.value }}" class="form-control" required />
+                        <label class="form-label" for="id_years_of_exper">Years of exper:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_upd_accom.total_client.errors }}
+                        <input type="number" id="id_total_client" name="total_client"
+                            value="{{ form_upd_accom.total_client.value }}" class="form-control" required />
+                        <label class="form-label" for="id_total_client">Total client:</label>
+                    </div>
+                    <br>
+                    <div class="form-outline">
+                        {{ form_upd_accom.award_won.errors }}
+                        <input type="number" id="id_award_won" name="award_won"
+                            value="{{ form_upd_accom.award_won.value }}" class="form-control" required />
+                        <label class="form-label" for="id_award_won">Award won:</label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-rounded">Update</button>
+                    <br>
+                    <hr>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+</html>

@@ -1,3 +1,4 @@
+import collections
 from django.contrib.auth import get_user, login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
@@ -23,6 +24,8 @@ def index(request, *args, **kwargs):
         ins=ins
     )
                   )
+
+
 
 def project(request, detail_pk, *args, **kwargs):
     project = Project.objects.get(pk=detail_pk)
@@ -69,20 +72,19 @@ def sign_account(request, *args, **kwargs):
 @login_required
 def dashboard(request, *args, **kwargs):
     
-    # info = User.objects.get(username=get_user(request))
     info = Detail.objects.get(personal_detail=get_user(request))
     info2 = Acomplishment.objects.get(pk=1)
-    name = request.user.get_full_name()
+
+    # template form  and modelform collection
     form = forms.ProjectForm()
     form_update = forms.DetailUpdateForm(instance=info)
     form_upd_accom = forms.AccomUpdateForm(instance=info2)
 
     if request.method == "POST":
-
         # Explicitly placing request.FILES helps to pick up the 
         # uploaded file in the form. without this, uploaded
         # files(image, file etc) won't be read
-        form = forms.ProjectForm(request.POST,request.FILES)
+        form = forms.ProjectForm(data=request.POST,files=request.FILES)
 
         if form.is_valid():
             name, topic = form.cleaned_data.get("name"), form.cleaned_data.get("topic")
@@ -125,7 +127,6 @@ def dashboard(request, *args, **kwargs):
         "resume/dashboard.html", 
         dict(
             form=form, 
-            name=name,
             form_update=form_update,
             form_upd_accom=form_upd_accom
             )
