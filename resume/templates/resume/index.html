@@ -366,37 +366,39 @@
                   </h5>
                 </div>
                 <div>
-                  <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+
+                  <form action="{% url 'resume:index' %}" method="POST" role="form" class="django-email-form">
+                      {% csrf_token %}
                     <div class="row">
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                          <input type="text" name="name" class="form-control" id="id_name" placeholder="Your Name"
                             required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                          <input type="email" class="form-control" name="email" id="id_email" placeholder="Your Email"
                             required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+                          <input type="text" class="form-control" name="subject" id="id_subject" placeholder="Subject"
                             required>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <textarea class="form-control" name="message" rows="5" placeholder="Message"
+                          <textarea class="form-control" name="message" rows="5" id="id_message" placeholder="Message"
                             required></textarea>
                         </div>
                       </div>
+                        {% if sent %}
                       <div class="col-md-12 text-center my-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                        <div >Your message has been sent. Thank you!</div>
                       </div>
+                        {% endif %}
                       <div class="col-md-12 text-center">
                         <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
                       </div>

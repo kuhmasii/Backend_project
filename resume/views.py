@@ -1,4 +1,3 @@
-import collections
 from django.contrib.auth import get_user, login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -11,17 +10,29 @@ from . import forms
 def index(request, *args, **kwargs):
     skills = None
     ins = None
+    sent = None
     try:
+        contact_form = forms.ContactForm()
         details = Detail.objects.get(pk=1)
         project_ = Project.objects.all()
         accomplish = Acomplishment.objects.get(pk=1)
         skills = [x.strip(",") for x in details.skills.split()]
         ins = Project.objects.get(pk=1)
+        if request.method == 'POST':
+            print("Tracking after post")
+            contact_form = forms.ContactForm(request.POST)
+            if contact_form.is_valid():
+                contact_form.send()
+                sent = True
+                return render(request, "resume/index.html", dict(
+                    details=details, project=project_, accom=accomplish, skills=skills,
+                    ins=ins, sent=sent)
+                    )
     except (Detail.DoesNotExist, Acomplishment.DoesNotExist):
         raise Http404
     return render(request, "resume/index.html", dict(
         details=details, project=project_, accom=accomplish, skills=skills,
-        ins=ins
+        ins=ins, sent=sent, contact_form=contact_form
     )
                   )
 
