@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -177,12 +177,6 @@ if ENV == 'production':
     # RECIPIENT TARGET
     RECIPIENT_ADDRESS = os.environ.get('RECIPIENT_ADDRESS')
 
-    # import dj_database_url
+    import dj_database_url
     
-    # DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
