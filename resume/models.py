@@ -5,7 +5,7 @@ User = get_user_model()
 # Create your models here.
 class Detail(models.Model):
     personal_detail = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
-    phone_number = models.IntegerField(default=00000000000)
+    phone_number = models.CharField(max_length=16, blank=True)
     address = models.CharField(max_length=50, blank=True)
     profile_pic = models.ImageField(upload_to='my_pics/', blank=False)
     about_me = models.TextField(blank=True)
