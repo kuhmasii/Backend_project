@@ -164,8 +164,8 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 RECIPIENT_ADDRESS = env('RECIPIENT_ADDRESS')
 
 # KEEPING UP WITH YOUR VERSION IN DEVELOPMENT MODE
-try:
-    from .local_settings import *
-except ImportError:
-    print("\a")
-    print("Opps! You are in Production Mode...")
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     print("\a")
+#     print("Opps! You are in Production Mode...")
