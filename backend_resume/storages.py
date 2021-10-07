@@ -5,7 +5,7 @@ import os
 
 class MediaStorage(S3Boto3Storage):
 	location = settings.AWS_MEDIA_LOCATION
-	file_overwrite = store_false
+	file_overwrite = False
 
 
 	def _save_content(self, obj, content, parameters):
