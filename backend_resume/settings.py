@@ -165,18 +165,6 @@ RECIPIENT_ADDRESS= env('RECIPIENT_ADDRESS')
 ENV = os.environ.get('ENV')
 
 if ENV == 'production':
-    ALLOWED_HOSTS = ['kuhmasii.herokuapp.com']
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    DEBUG = int(os.environ.get('DEBUG'))
-    EMAIL_HOST = os.environ.get('EMAIL_HOST')
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-
-    # RECIPIENT TARGET
-    RECIPIENT_ADDRESS = os.environ.get('RECIPIENT_ADDRESS')
-
-    import dj_database_url
-    
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+    from production.py import *
+else:
+    print("You are in Development Mode>>>>")
