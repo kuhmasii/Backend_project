@@ -1,7 +1,7 @@
 
 import os
 
-ALLOWED_HOSTS = ['.herokuapp.com','kuhmasii.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = int(os.environ.get('DEBUG'))
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
