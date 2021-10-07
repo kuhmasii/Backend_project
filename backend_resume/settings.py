@@ -132,17 +132,17 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
 # redirecting to login
-LOGIN_URL = '/login/'
+LOGIN_URL = 'login/'
 
 # MEDIA FILES
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media' 
 
