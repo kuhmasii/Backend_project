@@ -165,6 +165,6 @@ RECIPIENT_ADDRESS= env('RECIPIENT_ADDRESS')
 ENV = os.environ.get('ENV')
 
 if ENV == 'production':
-    from production import *
+    from .production import *
 else:
     print("You are in Development Mode>>>>")
