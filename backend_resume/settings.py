@@ -165,6 +165,8 @@ RECIPIENT_ADDRESS= env('RECIPIENT_ADDRESS')
 ENV = os.environ.get('ENV')
 
 if ENV == 'production':
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
     from .production import *
 else:
     print("You are in Development Mode>>>>")

@@ -13,8 +13,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # RECIPIENT TARGET
 RECIPIENT_ADDRESS = os.environ.get('RECIPIENT_ADDRESS')
 
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
 
 # ACCESS TO AWS
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
