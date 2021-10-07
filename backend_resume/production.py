@@ -24,6 +24,8 @@ AWS_DEFAULT_ACL = None
 AWS_LOCATION = 'static'
 AWS_MEDIA_LOCATION = 'media'
 
+AWS_S3_CUSTOM_DOMAIN = 'https://d20rxet7hdwba5.cloudfront.net'
+
 STATIC_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME,
     AWS_LOCATION)
 

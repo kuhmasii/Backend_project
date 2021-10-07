@@ -8,6 +8,7 @@ class Detail(models.Model):
     phone_number = models.CharField(max_length=16, blank=True)
     address = models.CharField(max_length=50, blank=True)
     profile_pic = models.ImageField(upload_to='my_pics/', blank=False)
+    backgroud_pic = models.ImageField(upload_to='my_pics/', blank=True)
     about_me = models.TextField(blank=True)
     skills = models.CharField(max_length=150, blank=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -19,6 +20,14 @@ class Detail(models.Model):
     def profileURL(self):
         try:
             url = self.profile_pic.url
+        except ValueError:
+            url = ''
+        return url
+
+    @property
+    def backgroudURL(self):
+        try:
+            url = self.backgroud_pic.url
         except ValueError:
             url = ''
         return url
