@@ -151,6 +151,11 @@
                     </div>
                     <br>
                     <div class="form-outline">
+                        {{ form_update.backgroud_pic.errors }}
+                        {{ form_update.backgroud_pic }}
+                    </div>
+                    <br>
+                    <div class="form-outline">
                         {{ form.about_me.errors }}
                         <textarea class="form-control" cols="40" rows="10" id="id_about_me"
                             name="about_me">{{ form_update.about_me.value }}</textarea>
