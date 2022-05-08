@@ -6,19 +6,20 @@
 
 {% block title %}{{ details.personal_detail.username }} | Portfolio {% endblock title %}
 
+
+
+{% block navbar %} {% include 'navbar.html' %}{% endblock navbar%}
 {% block landing_image %}
 <!-- ======= Hero Section ======= -->
-<div id="hero" class="hero route bg-image" style="background-image: url({{ details.backgroudURL }})">
+<div id="hero" class="hero route bg-image" style="background-image: url({{ details.backgroud_pic }})">
   <div class="overlay-itro"></div>
   <div class="hero-content display-table">
     <div class="table-cell">
       <div class="container">
         <!--<p class="display-6 color-d">Hello, world!</p>-->
-        <h1 class="hero-title mb-4">I am {{ details.personal_detail.last_name }}
-          {{ details.personal_detail.first_name}}</h1>
+        <h1 class="hero-title mb-4">I am {{ details.personal_detail.get_full_name }}</h1>
         <p class="hero-subtitle"><span class="typed"
-            data-typed-items="Backend Developer, Freelancer, Python Tutor"></span></p>
-        <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
+            data-typed-items="Backend Developer, Mentor, Django Developer"></span></p>
       </div>
     </div>
   </div>
@@ -36,13 +37,13 @@
               <div class="row">
                 <div class="col-sm-6 col-md-5">
                   <div class="about-img">
-                    <img src="{{ details.profileURL }}" class="img-fluid rounded b-shadow-a" alt="">
+                    <img src="{{ details.profile_pic }}" class="img-fluid rounded b-shadow-a" alt="">
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-7">
                   <div class="about-info">
                     <p><span class="title-s">Name: </span>
-                      <span>{{ details.personal_detail.last_name }} {{ details.personal_detail.first_name }}</span>
+                      <span>{{ details.personal_detail.get_full_name }}</span>
                     </p>
                     <p><span class="title-s">Profile: </span> <span> Backend Developer</span></p>
                     <p><span class="title-s">Email: </span> <span>{{ details.personal_detail.email }}</span></p>
@@ -140,7 +141,6 @@
     </div>
   </div>
 </section><!-- End Services Section -->
-
 <!-- ======= Counter Section ======= -->
 <div class="section-counter paralax-mf bg-image" style="background-image: url({% static 'img/image2.jpg' %})">
   <div class="overlay-mf"></div>
@@ -152,7 +152,7 @@
             <span class="ico-circle"><i class="bi bi-check"></i></span>
           </div>
           <div class="counter-num">
-            <p data-purecounter-start="0" data-purecounter-end="{{ ins.get_total_accom }}" data-purecounter-duration="1"
+            <p data-purecounter-start="0" data-purecounter-end="{{ accom.work_completed }}" data-purecounter-duration="1"
               class="counter purecounter"></p>
             <span class="counter-text">WORKS COMPLETED</span>
           </div>
@@ -176,7 +176,7 @@
             <span class="ico-circle"><i class="bi bi-people"></i></span>
           </div>
           <div class="counter-num">
-            <p data-purecounter-start="0" data-purecounter-end="{{ ins.get_total_client }}"
+            <p data-purecounter-start="0" data-purecounter-end="{{ accom.total_client }}"
               data-purecounter-duration="1" class="counter purecounter"></p>
             <span class="counter-text">TOTAL CLIENTS</span>
           </div>
@@ -197,7 +197,6 @@
     </div>
   </div>
 </div><!-- End Counter Section -->
-
 <!-- ======= Portfolio Section ======= -->
 <section id="work" class="portfolio-mf sect-pt4 route">
   <div class="container">
@@ -215,12 +214,12 @@
       </div>
     </div>
     <div class="row">
-      {% for proj in project %}
+      {% for proj in details.get_projects %}
       <div class="col-md-4">
         <div class="work-box">
-          <a href="{{ proj.ProjectURL }}" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <a href="{{ proj.proj_pic }}" data-gallery="portfolioGallery" class="portfolio-lightbox">
             <div class="work-img">
-              <img src="{{ proj.ProjectURL }}" alt="" class="img-fluid">
+              <img src="{{ proj.proj_pic }}" alt="" class="img-fluid">
             </div>
           </a>
           <div class="work-content">
@@ -234,7 +233,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="w-like">
-                  <a href="{% url 'resume:project' proj.pk  %}"> <span class="bi bi-plus-circle"></span></a>
+                  <a href="{% url 'resume:resume-detail' proj.pk  %}"> <span class="bi bi-plus-circle"></span></a>
                 </div>
               </div>
             </div>
@@ -248,7 +247,7 @@
 
 <!-- ======= Testimonials Section ======= -->
 
-<div class="testimonials paralax-mf bg-image" style="background-image: url({% static 'img/o-bg.jpg' %})">
+<!-- <div class="testimonials paralax-mf bg-image" style="background-image: url({% static 'img/o-bg.jpg' %})">
   <div class="overlay-mf"></div>
   <div class="container">
     <div class="row">
@@ -269,8 +268,9 @@
                   </p>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
-
+            </div> -->
+            <!-- End testimonial item -->
+<!-- 
             <div class="swiper-slide">
               <div class="testimonial-box">
                 <div class="author-test">
@@ -283,18 +283,20 @@
                   </p>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
-          </div>
+            </div> -->
+            <!-- End testimonial item -->
+<!--           </div>
           <div class="swiper-pagination"></div>
         </div>
 
-        <!-- <div id="testimonial-mf" class="owl-carousel owl-theme">
+        <div id="testimonial-mf" class="owl-carousel owl-theme">
 
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
-</div><!-- End Testimonials Section -->
+</div> -->
+<!-- End Testimonials Section -->
 
 <!-- ======= Blog Section ======= -->
 <!-- <section id="blog" class="blog-mf sect-pt4 route">
@@ -350,8 +352,8 @@
 <!-- End Blog Section -->
 
 <!-- ======= Contact Section ======= -->
-<section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(
-    {% static 'img/o-bg.jpg' %})">
+<section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" 
+style="background-image: url({% static 'img/o-bg.jpg' %})">
   <div class="overlay-mf"></div>
   <div class="container">
     <div class="row">
@@ -367,7 +369,7 @@
                 </div>
                 <div>
 
-                  <form action="{% url 'resume:index' %}" method="POST" role="form" class="django-email-form">
+                  <form action="{% url 'resume:resume-list' %}" method="POST" role="form" class="django-email-form">
                       {% csrf_token %}
                     <div class="row">
                       <div class="col-md-12 mb-3">

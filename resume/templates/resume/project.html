@@ -11,7 +11,7 @@
       <h2 class="intro-title mb-4 text-center">Project Details</h2>
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
-          <a href="#">Home</a>
+          <a href="{% url 'resume:resume-list' %}">Home</a>
         </li>
         <li class="breadcrumb-item active">{{ project }}</li>
       </ol>
@@ -31,7 +31,7 @@
           <div class="swiper-wrapper align-items-center">
 
             <div class="swiper-slide">
-              <img src="{{ project.ProjectURL }}" alt="">
+              <img src="{{ project.proj_pic }}" alt="">
             </div>
 
             <div class="swiper-slide">
@@ -54,13 +54,14 @@
             <li><strong>Category</strong>: {{ project.topic }}</li>
             <li><strong>Client</strong>: {{ project.client }}</li>
             <li><strong>Project date</strong>: {{ project.project_created | date:"D d M, Y." }}</li>
-            <li><strong>Project URL</strong>: <a href="{{ project.proj_url }}">{{ project.proj_url }}</a></li>
+            <li><strong>Project URL</strong>: <a href="{{ project.proj_url }}" 
+              target="_blank" rel="noopener noreferrer">{{ project.proj_url }}</a></li>
           </ul>
         </div>
         <div class="portfolio-description">
           <h2>{{ project.name }}</h2>
           <p>
-            {{ project.description }}
+            {{ project.description|linebreaksbr|truncatewords:'20' }}
           </p>
         </div>
       </div>
