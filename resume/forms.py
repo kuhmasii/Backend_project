@@ -43,7 +43,7 @@ class ProjectForm(forms.Form):
 class DetailUpdateForm(forms.ModelForm):
     class Meta:
         model = Detail
-        fields = "phone_number address profile_pic backgroud_pic about_me skills".split()
+        fields = "phone_number address _profile_pic _backgroud_pic about_me skills".split()
 
 class AccomUpdateForm(forms.ModelForm):
     class Meta:
