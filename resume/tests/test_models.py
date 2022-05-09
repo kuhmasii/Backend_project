@@ -1,5 +1,6 @@
 from django.test import TestCase
-from resume.models import Detail, Project
+from django.utils import timezone
+from resume.models import Detail, Project, Acomplishment
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -32,7 +33,7 @@ class DetailTests(TestCase):
 
     def test_not_detail_creation(self):
         """Testing an instance of a Detail Model is not 
-                yet created and the type is not of Detail Model.
+            yet created and the type is not of Detail Model.
         """
         ins = Detail.objects.get(pk=1)
         not_ins = 'This is a dummy data'
@@ -119,10 +120,84 @@ class DetailTests(TestCase):
         project = Project.objects.create(
             owner=ins, name='FistProject',
             topic='Testing Project',
-            project_created='2022-05-08'
+            project_created=timezone.now()
         )
 
         check = ins.get_projects()
 
         self.assertTrue(check)
         self.assertIsInstance(check.first(), Project)
+
+
+class AcomplishmentTests(TestCase):
+    def setUp(self):
+        Acomplishment.objects.create(
+            years_of_exper=2
+        )
+
+    def test_accom_creation(self):
+        """Testing an instance of an Acomplishment Model created.
+            Instance should return the data of a pk field
+            attribute as the '__str__' of the model, Acomplishment.
+        """
+        ins = Acomplishment.objects.get(pk=1)
+
+        self.assertIsInstance(ins, Acomplishment)
+        self.assertEqual(ins.__str__(), str(ins.pk))
+
+    def test_accom_not_creation(self):
+        """Testing an instance of a Acomplishment Model that is not 
+            yet created and the type is not of Acomplishment Model.
+        """
+        ins = Acomplishment.objects.get(pk=1)
+        not_ins = 'This is a dummy data'
+
+        self.assertNotIsInstance(not_ins, Acomplishment)
+        self.assertNotEqual(ins.__str__(), not_ins)
+
+    def test_accomplishment_update_before(self):
+        """Testing accomplishment_update default values
+           of the fields should be return before calling 
+           the function
+        """
+
+        ins = Acomplishment.objects.get(pk=1)
+
+        self.assertEqual(ins.work_completed, 0)
+        self.assertEqual(ins.years_of_exper, 2)
+        self.assertEqual(ins.total_client, 0)
+
+    def test_accomplishment_update(self):
+        """Testing accomplishment_update default values
+           should be updated after calling 
+           the function
+        """
+        project = Project.objects.create(
+            name='FistProject',
+            topic='Testing Project',
+            client='Testing',
+            project_created=timezone.now()
+        )
+        ins = Acomplishment.objects.get(pk=1)
+        ins.accomplishment_update
+
+        self.assertEqual(ins.work_completed, 1)
+        self.assertEqual(ins.years_of_exper, 2)
+        self.assertEqual(ins.total_client, 1)
+
+    def test_accomplishment_update_if_personal_project(self):
+        """Testing accomplishment_update should not update
+           the total_client if the client is 'Personal Project' 
+        """
+        project = Project.objects.create(
+            name='FistProject',
+            topic='Testing Project',
+            client='Personal Project',
+            project_created=timezone.now()
+        )
+        ins = Acomplishment.objects.get(pk=1)
+        ins.accomplishment_update
+
+        self.assertEqual(ins.work_completed, 1)
+        self.assertEqual(ins.years_of_exper, 2)
+        self.assertEqual(ins.total_client, 0)
