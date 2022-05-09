@@ -15,7 +15,7 @@ def index(request, *args, **kwargs):
         details = Detail.objects.get(pk=1)
 
         accom.accomplishment_update
-        skills = [x.strip(",") for x in details.skills.split()]
+        skills = [x.strip() for x in details.skills.split(",")]
     except (Detail.DoesNotExist, Acomplishment.DoesNotExist):
         raise Http404
 
