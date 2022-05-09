@@ -210,6 +210,7 @@ class ProjectTests(TestCase):
             topic='Atomation',
             project_created=timezone.now()
         )
+
     def test_project_creation(self):
         """Testing an instance of an Project Model created.
             Instance should return the data of the name field
@@ -229,7 +230,7 @@ class ProjectTests(TestCase):
 
         self.assertNotIsInstance(not_ins, Project)
         self.assertNotEqual(ins.__str__(), not_ins)
-        
+
     def test_proj_pic_property(self):
         """proj_pic property should return a url if a media path is given 
         or a media was selected.

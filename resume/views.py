@@ -13,7 +13,7 @@ def index(request, *args, **kwargs):
     try:
         accom = Acomplishment.objects.get(pk=1)
         details = Detail.objects.get(pk=1)
-        print(details.get_projects())
+
         accom.accomplishment_update
         skills = [x.strip(",") for x in details.skills.split()]
     except (Detail.DoesNotExist, Acomplishment.DoesNotExist):
