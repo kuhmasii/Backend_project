@@ -137,7 +137,7 @@ class AcomplishmentTests(TestCase):
 
     def test_accom_creation(self):
         """Testing an instance of an Acomplishment Model created.
-            Instance should return the data of a pk field
+            Instance should return the data of the pk field
             attribute as the '__str__' of the model, Acomplishment.
         """
         ins = Acomplishment.objects.get(pk=1)
@@ -201,3 +201,55 @@ class AcomplishmentTests(TestCase):
         self.assertEqual(ins.work_completed, 1)
         self.assertEqual(ins.years_of_exper, 2)
         self.assertEqual(ins.total_client, 0)
+
+
+class ProjectTests(TestCase):
+    def setUp(self):
+        Project.objects.create(
+            name='Testing Project',
+            topic='Atomation',
+            project_created=timezone.now()
+        )
+    def test_project_creation(self):
+        """Testing an instance of an Project Model created.
+            Instance should return the data of the name field
+            attribute as the '__str__' of the model, Project.
+        """
+        ins = Project.objects.get(pk=1)
+
+        self.assertIsInstance(ins, Project)
+        self.assertEqual(ins.__str__(), 'Testing Project')
+
+    def test_accom_not_creation(self):
+        """Testing an instance of a Project Model that is not 
+            yet created and the type is not of Project Model.
+        """
+        ins = Project.objects.get(pk=1)
+        not_ins = 'This is a dummy data'
+
+        self.assertNotIsInstance(not_ins, Project)
+        self.assertNotEqual(ins.__str__(), not_ins)
+        
+    def test_proj_pic_property(self):
+        """proj_pic property should return a url if a media path is given 
+        or a media was selected.
+        """
+        ins = Project.objects.get(pk=1)
+        ins._proj_pic = 'my_project_pics/dummyprof_pic.png'
+        ins.save()
+
+        # calling the property function
+        url = ins.proj_pic
+
+        self.assertEqual(url, '/media/my_project_pics/dummyprof_pic.png')
+
+    def test_proj_pic_property_default(self):
+        """proj_pic property should return the default media path if none is given 
+           or a media was not selected.
+        """
+        ins = Project.objects.get(pk=1)
+
+        # calling the property function
+        url = ins.proj_pic
+
+        self.assertEqual(url, '/media/my_project_pics/cover.jpg')

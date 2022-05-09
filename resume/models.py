@@ -84,7 +84,10 @@ class Project(models.Model):
     proj_url = models.URLField()
     client = models.CharField(max_length=100, blank=True, null=True)
     project_created = models.DateTimeField()
-
+    
+    class Meta:
+        ordering = ("project_created",)
+    
     def __str__(self):
         return self.name
 
@@ -96,5 +99,4 @@ class Project(models.Model):
             url = ''
         return url
 
-    class Meta:
-        ordering = ("project_created",)
+
