@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from datetime import date
 
 User = get_user_model()
-# Create your models here.
 
 
 class Detail(models.Model):
@@ -56,16 +56,20 @@ class Acomplishment(models.Model):
 
     @property
     def accomplishment_update(self):
-        projects = Project.objects.all()
 
+        experience = 2
+        year = date.today().year
+        if year == (year + 1):
+            experience = self.years_of_exper + 1
+
+        projects = Project.objects.all()
         project_count = projects.count()
         total_client = projects.exclude(
             client__iexact="Personal Project").count()
 
         self.work_completed = project_count
         self.total_client = total_client
-        self.years_of_exper = 2
-
+        self.years_of_exper = experience
         self.save()
 
 
