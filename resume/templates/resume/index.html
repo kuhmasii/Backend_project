@@ -70,7 +70,7 @@
                   </h5>
                 </div>
                 <p class="lead">
-                  {{ details.about_me }}
+                  {{ details.about_me|linebreaksbr }}
                 </p>
               </div>
             </div>
@@ -416,7 +416,7 @@ style="background-image: url({% static 'img/o-bg.jpg' %})">
                 </div>
                 <div class="more-info">
                   <p class="lead">
-                    {{ details.about_me | truncatewords:60 }}
+                    {{ details.about_me|linebreaksbr }}
                   </p>
                   <ul class="list-ico">
                     <li><span class="bi bi-geo-alt"></span> {{ details.address }}</li>
